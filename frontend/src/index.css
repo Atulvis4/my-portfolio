@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Theme CSS Variables ─────────────────────────────── */
+:root {
+  /* Dark theme (default) */
+  --color-background: #080808;
+  --color-surface: #111111;
+  --color-surface-2: #161616;
+  --color-border: #1a1a1a;
+  --color-border-subtle: #262626;
+  --color-primary: #ededed;
+  --color-secondary: #737373;
+  --color-muted: #404040;
+  --color-accent: #ffffff;
+}
+
+:root.light {
+  --color-background: #fafafa;
+  --color-surface: #ffffff;
+  --color-surface-2: #f4f4f5;
+  --color-border: #e4e4e7;
+  --color-border-subtle: #d4d4d8;
+  --color-primary: #09090b;
+  --color-secondary: #52525b;
+  --color-muted: #a1a1aa;
+  --color-accent: #09090b;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-primary font-sans antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  ::selection {
+    background: rgba(128, 128, 128, 0.2);
+    color: var(--color-primary);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-5px); opacity: 1; }
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-5xl mx-auto px-6 py-24;
+  }
+
+  .section-label {
+    @apply font-mono text-xs text-secondary tracking-widest uppercase mb-3;
+  }
+
+  .section-title {
+    @apply text-2xl font-semibold text-primary mb-12;
+  }
+
+  .card {
+    @apply bg-surface border border-border rounded-lg p-6
+           hover:border-border-subtle transition-colors duration-200;
+  }
+
+  .badge {
+    @apply font-mono text-xs text-secondary bg-surface border border-border
+           rounded px-2.5 py-1 inline-block;
+  }
+
+  /* Uses CSS variables so it inverts correctly in light mode */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-4 py-2
+           text-sm font-medium rounded
+           hover:opacity-80 transition-all duration-150;
+    background-color: var(--color-accent);
+    color: var(--color-background);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-4 py-2 border border-border
+           text-secondary text-sm font-medium rounded
+           hover:text-primary hover:border-border-subtle
+           transition-colors duration-150;
+  }
+
+  .section-reveal {
+    @apply transition-all duration-700 ease-out;
+  }
+  .section-reveal-hidden {
+    @apply opacity-0 translate-y-8;
+  }
+  .section-reveal-visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    @apply w-8 h-8 flex items-center justify-center rounded-md
+           text-muted hover:text-primary
+           border border-transparent hover:border-border
+           transition-all duration-150;
+  }
+}
