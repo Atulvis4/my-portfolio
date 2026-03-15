@@ -1,10 +1,16 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import { existsSync } from 'fs';
 import { initDB } from './services/db.js';
 import { getRedisClient } from './services/redis.js';
 import rateLimiter from './middleware/rateLimiter.js';
 import chatRouter from './routes/chat.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -23,9 +29,14 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/chat', rateLimiter, chatRouter);
 
-app.use((req, res) => {
-  res.status(404).json({ error: 'Not found' });
-});
+// Serve frontend static files if built
+const frontendDist = join(__dirname, '../../frontend/dist');
+if (existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+  app.get('*', (req, res) => res.sendFile(join(frontendDist, 'index.html')));
+} else {
+  app.use((req, res) => res.status(404).json({ error: 'Not found' }));
+}
 
 app.use((err, req, res, next) => {
   console.error('[server] Unhandled error:', err);
