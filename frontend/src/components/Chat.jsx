@@ -5,7 +5,13 @@ import { useInView } from '../hooks/useInView';
 const INITIAL_MESSAGE =
   "Hi! I'm an AI trained on Atul's resume. Ask me about his experience with multi-agent RAG systems, the OneMi App, his tech stack, or anything else.";
 
-const generateSessionId = () => crypto.randomUUID();
+const generateSessionId = () => {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+  });
+};
 
 function useTypewriter(text, speed = 18) {
   const [displayed, setDisplayed] = useState('');
