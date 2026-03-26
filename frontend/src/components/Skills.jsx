@@ -21,7 +21,7 @@ export default function Skills() {
           return (
             <div
               key={category}
-              className={`card animate-fade-up ${isFeatured ? 'sm:col-span-2' : ''}`}
+              className={`${isFeatured ? 'card-featured sm:col-span-2' : 'card'} animate-fade-up`}
               style={{ animationDelay: `${i * 0.08}s` }}
             >
               <div className="flex items-center justify-between mb-4">
@@ -35,8 +35,12 @@ export default function Skills() {
                 )}
               </div>
               <div className="flex flex-wrap gap-2">
-                {items.map((skill) => (
-                  <span key={skill} className="badge">
+                {items.map((skill, j) => (
+                  <span
+                    key={skill}
+                    className="badge animate-fade-up"
+                    style={{ animationDelay: `${i * 0.08 + j * 0.03}s` }}
+                  >
                     {skill}
                   </span>
                 ))}

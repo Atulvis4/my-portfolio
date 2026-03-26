@@ -180,6 +180,18 @@ Languages spoken: English, Hindi, Marathi.`,
   },
   {
     id: 15,
+    section: 'project_android_termux_server',
+    text: `Atul designed and deployed a production-like full-stack backend system entirely on an Android device using Termux, demonstrating strong backend engineering and DevOps capabilities in a constrained environment.
+Tech stack: Node.js (backend server), PostgreSQL (relational data management), Redis (caching and performance optimization).
+Process management: All critical services — including the Node.js backend server and Cloudflare Tunnel — are managed using PM2, ensuring process reliability, automatic restarts on crash, and efficient resource utilization on the mobile device.
+Networking: The application is securely exposed to the internet via Cloudflare Tunnel without requiring a public IP address. This replicates real-world deployment scenarios involving reverse proxies and secure networking — the same architecture used in production cloud deployments.
+Version control: The entire codebase is version-controlled using Git, enabling structured development and deployment workflows directly on the Android device.
+Monitoring: A custom monitoring API was implemented to stream real-time system metrics — CPU usage, memory consumption, and uptime — to the portfolio frontend. The frontend polls the API every 3 seconds and displays live stats in a dedicated "Live Server" section.
+This project highlights deep understanding of backend systems, process management, networking, and infrastructure. It demonstrates the ability to engineer scalable and reliable solutions beyond traditional cloud environments using only a physical Android device.
+Key skills demonstrated: Termux (Linux on Android), PM2 process management, Cloudflare Tunnel, PostgreSQL on mobile, Redis on mobile, Node.js deployment, real-time monitoring API, constrained environment DevOps.`,
+  },
+  {
+    id: 16,
     section: 'contact_availability',
     text: `Atul Vishwakarma is open to full-time roles, freelance projects, and contract work in backend engineering and AI/RAG systems.
 He is based in Mumbai, India and can work remotely or on-site.

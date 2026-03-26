@@ -1,4 +1,1 @@
-/* App-level overrides */
-#root {
-  min-height: 100vh;
-}
+/* App-level overrides — #root handled in index.css */

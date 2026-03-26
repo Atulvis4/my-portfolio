@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { personal } from '../data/portfolioData';
 import { useTheme } from '../context/ThemeContext';
 
 const NAV_LINKS = [
@@ -36,6 +35,7 @@ function MoonIcon() {
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggle } = useTheme();
 
   useEffect(() => {
@@ -44,23 +44,36 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close menu on resize to desktop
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth >= 640) setMenuOpen(false); };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  function handleNavClick() {
+    setMenuOpen(false);
+  }
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-background/90 backdrop-blur-md border-b border-border'
+        scrolled || menuOpen
+          ? 'bg-background/95 backdrop-blur-md border-b border-border'
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
+        {/* Logo */}
         <a
           href="#hero"
           className="font-mono text-sm text-primary hover:text-accent transition-colors"
         >
-          {personal.name.split(' ')[0].toLowerCase()}.dev
+          atulv.dev
         </a>
 
-        <nav className="flex items-center gap-6">
+        {/* Desktop nav */}
+        <nav className="hidden sm:flex items-center gap-5 lg:gap-6">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -78,16 +91,64 @@ export default function Navbar() {
             resume
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           </a>
-
-          {/* Theme toggle */}
           <button
             onClick={toggle}
             className="theme-toggle"
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
           >
             {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
           </button>
+        </nav>
+
+        {/* Mobile right — theme + hamburger */}
+        <div className="flex sm:hidden items-center gap-2">
+          <button onClick={toggle} className="theme-toggle" aria-label="Toggle theme">
+            {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+          </button>
+          <button
+            onClick={() => setMenuOpen((o) => !o)}
+            className="theme-toggle"
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu dropdown — solid background, no bleed-through */}
+      <div
+        className={`sm:hidden overflow-hidden transition-all duration-300 ease-in-out bg-background border-t border-border ${
+          menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0 border-transparent'
+        }`}
+      >
+        <nav className="flex flex-col px-5 pb-4 gap-1">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={handleNavClick}
+              className="text-sm text-secondary hover:text-primary transition-colors duration-150 py-2.5 border-b border-border last:border-0"
+            >
+              {link.label}
+            </a>
+          ))}
+          <a
+            href="/Atulkumar_Vishwakarma_Resume.pdf"
+            download="Atulkumar_Vishwakarma_Resume.pdf"
+            onClick={handleNavClick}
+            className="text-sm text-secondary hover:text-primary transition-colors duration-150 py-2.5 flex items-center gap-1.5"
+          >
+            resume
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </a>
         </nav>
       </div>
     </header>

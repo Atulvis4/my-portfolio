@@ -7,7 +7,6 @@ export const personal = {
   experience: '1.3 years',
   available: true,
   email: 'atul.vis4@gmail.com',
-  phone: '+91 9969368255',
   github: 'https://github.com/atulvis4',
   linkedin: 'https://linkedin.com/in/atulvis4',
 };
@@ -16,7 +15,7 @@ export const skills = {
   Backend: ['Node.js', 'Express.js', 'Laravel', 'REST APIs', 'PHP', 'Prisma ORM', 'Backend Architecture'],
   Databases: ['MySQL', 'MongoDB', 'Redis', 'Qdrant (Vector DB)'],
   'AI / RAG': ['OpenAI API (GPT-4o)', 'Multi-Agent RAG', 'Vector Search', 'Gemini API', 'Context Engineering', 'Prompt Engineering'],
-  'DevOps / Cloud': ['Docker', 'Docker Compose', 'Amazon S3', 'AWS', 'Git', 'GitHub'],
+  'DevOps / Cloud': ['Docker', 'Docker Compose', 'Amazon S3', 'AWS', 'Git', 'GitHub', 'PM2', 'Cloudflare Tunnel'],
   Frontend: ['React', 'Redux Toolkit', 'Tailwind CSS'],
 };
 
@@ -71,9 +70,17 @@ export const projects = [
     github: null,
   },
   {
+    title: 'Android Termux Server',
+    description:
+      'This portfolio — the one you\'re on right now — is served from an old Redmi 9 sitting on a desk in Mumbai. No cloud. No VPS. A spare Android phone running Node.js, PostgreSQL, and Redis via Termux, kept alive by PM2 and tunnelled to the internet through Cloudflare — no public IP needed. The live CPU and memory stats you see? That\'s the phone, right now.',
+    stack: ['Node.js', 'PostgreSQL', 'Redis', 'PM2', 'Cloudflare Tunnel', 'Git'],
+    type: 'DevOps / Infrastructure',
+    github: null,
+  },
+  {
     title: 'Portfolio Resume Chat',
     description:
-      'AI chat on this portfolio — RAG pipeline using Gemini embeddings (text-embedding-004), Qdrant vector search, gemini-2.0-flash for answers, PostgreSQL for history, and Redis for rate limiting.',
+      'Ask anything about my experience and get answers grounded in my actual resume — not hallucinations. Built a full RAG pipeline: Gemini text-embedding-004 converts resume chunks into vectors stored in Qdrant, gemini-2.0-flash generates the response, PostgreSQL persists conversation history, and Redis enforces rate limits. All running on the same Redmi 9.',
     stack: ['Node.js', 'Gemini API', 'Qdrant', 'PostgreSQL', 'Redis'],
     type: 'AI / GenAI',
     github: null,

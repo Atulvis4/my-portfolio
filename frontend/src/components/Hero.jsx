@@ -17,29 +17,42 @@ export default function Hero() {
           setDone(true);
           clearInterval(interval);
         }
-      }, 65);
+      }, 62);
       return () => clearInterval(interval);
-    }, 400);
+    }, 350);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center max-w-5xl mx-auto px-6 pt-14 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-5 sm:px-8 pt-14 overflow-hidden"
     >
-      {/* Subtle radial glow behind the name */}
+      {/* Ambient glow — white top-left */}
       <div
-        className="pointer-events-none absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full opacity-[0.04]"
-        style={{ background: 'radial-gradient(circle, #ffffff 0%, transparent 70%)' }}
+        className="pointer-events-none absolute -top-48 -left-24 w-[750px] h-[750px] rounded-full"
+        style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.032) 0%, transparent 65%)' }}
+      />
+      {/* Ambient glow — green bottom-right hint */}
+      <div
+        className="pointer-events-none absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full"
+        style={{ background: 'radial-gradient(circle, rgba(74,222,128,0.025) 0%, transparent 65%)' }}
       />
 
-      <div className="animate-fade-up relative z-10" style={{ animationDelay: '0.1s' }}>
-        <p className="font-mono text-secondary text-sm mb-6">
+      <div className="relative z-10">
+        {/* Prompt */}
+        <p
+          className="font-mono text-secondary text-sm mb-6 animate-slide-up"
+          style={{ animationDelay: '0.05s' }}
+        >
           <span className="text-muted mr-2">$</span>whoami
         </p>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-primary tracking-tight mb-4 leading-tight">
+        {/* Name */}
+        <h1
+          className="text-4xl sm:text-5xl md:text-6xl font-semibold text-primary tracking-tight mb-4 leading-tight animate-slide-up"
+          style={{ animationDelay: '0.15s' }}
+        >
           {displayName}
           <span
             className={`inline-block w-0.5 h-10 md:h-12 bg-primary ml-1 align-middle ${
@@ -48,15 +61,27 @@ export default function Hero() {
           />
         </h1>
 
-        <p className="text-lg sm:text-xl text-secondary mt-4 mb-3 max-w-xl">
+        {/* Role */}
+        <p
+          className="text-lg sm:text-xl text-secondary mt-4 mb-3 max-w-xl animate-slide-up"
+          style={{ animationDelay: '0.3s' }}
+        >
           Backend Engineer &amp; AI Systems
         </p>
 
-        <p className="text-secondary text-base max-w-xl leading-relaxed mb-10">
+        {/* Tagline */}
+        <p
+          className="text-secondary text-base max-w-xl leading-relaxed mb-7 animate-slide-up"
+          style={{ animationDelay: '0.4s' }}
+        >
           {personal.tagline}
         </p>
 
-        <div className="flex flex-wrap gap-3 mb-12">
+        {/* CTAs */}
+        <div
+          className="flex flex-wrap gap-3 mb-7 animate-slide-up"
+          style={{ animationDelay: '0.5s' }}
+        >
           <a href="#projects" className="btn-primary">
             View Work
           </a>
@@ -74,7 +99,11 @@ export default function Hero() {
           </a>
         </div>
 
-        <div className="flex flex-wrap items-center gap-6 text-sm text-secondary font-mono mb-8">
+        {/* Meta info */}
+        <div
+          className="flex flex-wrap items-center gap-6 text-sm text-secondary font-mono mb-6 animate-slide-up"
+          style={{ animationDelay: '0.6s' }}
+        >
           <span className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
             {personal.location}
@@ -89,12 +118,15 @@ export default function Hero() {
         </div>
 
         {/* Social links */}
-        <div className="flex items-center gap-5 pt-6 border-t border-border">
+        <div
+          className="flex flex-wrap items-center gap-5 pt-6 border-t border-border animate-slide-up"
+          style={{ animationDelay: '0.7s' }}
+        >
           <a
             href={personal.github}
             target="_blank"
             rel="noreferrer"
-            className="font-mono text-xs text-muted hover:text-primary transition-colors"
+            className="font-mono text-xs text-muted hover:text-primary transition-colors duration-150"
           >
             github.com/atulvis4 →
           </a>
@@ -102,13 +134,13 @@ export default function Hero() {
             href={personal.linkedin}
             target="_blank"
             rel="noreferrer"
-            className="font-mono text-xs text-muted hover:text-primary transition-colors"
+            className="font-mono text-xs text-muted hover:text-primary transition-colors duration-150"
           >
             linkedin.com/in/atulvis4 →
           </a>
           <a
             href={`mailto:${personal.email}`}
-            className="font-mono text-xs text-muted hover:text-primary transition-colors"
+            className="font-mono text-xs text-muted hover:text-primary transition-colors duration-150"
           >
             {personal.email} →
           </a>

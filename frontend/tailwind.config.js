@@ -25,6 +25,9 @@ export default {
         'slide-in': 'slideIn 0.3s ease-out',
         'scale-in': 'scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both',
         'message-in': 'messageIn 0.25s ease-out both',
+        'slide-up': 'slideUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'float': 'float 7s ease-in-out infinite',
+        'glow-pulse': 'glowPulse 3s ease-in-out infinite',
       },
       keyframes: {
         cursorBlink: {
@@ -50,6 +53,18 @@ export default {
         messageIn: {
           from: { opacity: '0', transform: 'translateY(6px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideUp: {
+          from: { opacity: '0', transform: 'translateY(28px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-14px)' },
+        },
+        glowPulse: {
+          '0%, 100%': { opacity: '0.4' },
+          '50%': { opacity: '1' },
         },
       },
     },

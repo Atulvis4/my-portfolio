@@ -150,15 +150,32 @@ export default function Chat() {
       ref={sectionRef}
       className={`section-container section-reveal ${inView ? 'section-reveal-visible' : 'section-reveal-hidden'}`}
     >
+      {/* Live pill */}
+      <div className="mb-6">
+        <span className="live-pill">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shrink-0" />
+          live · running on a Redmi 9 in Mumbai via Cloudflare Tunnel
+        </span>
+      </div>
+
       <p className="section-label">AI-powered</p>
       <h2 className="section-title">Chat with Resume</h2>
 
+      {/* Chat window with green glow */}
       <div
-        className="rounded-xl overflow-hidden border border-border bg-surface flex flex-col animate-scale-in"
-        style={{ height: '520px' }}
+        className="rounded-xl overflow-hidden flex flex-col animate-scale-in"
+        style={{
+          height: '520px',
+          border: '1px solid rgba(74, 222, 128, 0.2)',
+          boxShadow: '0 0 0 1px rgba(74, 222, 128, 0.06), 0 0 60px rgba(74, 222, 128, 0.06), 0 20px 60px rgba(0,0,0,0.4)',
+          background: 'var(--color-surface)',
+        }}
       >
         {/* Terminal header */}
-        <div className="px-4 py-3 border-b border-border bg-surface-2 flex items-center justify-between shrink-0">
+        <div
+          className="px-4 py-3 border-b flex items-center justify-between shrink-0"
+          style={{ borderColor: 'rgba(74, 222, 128, 0.12)', background: 'var(--color-surface-2)' }}
+        >
           <div className="flex items-center gap-3">
             <div className="flex gap-1.5">
               <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
@@ -187,10 +204,7 @@ export default function Chat() {
           {loading && <TypingIndicator />}
 
           {messages.length === 0 && !loading && (
-            <div
-              className="pt-1 animate-fade-up"
-              style={{ animationDelay: '1.6s' }}
-            >
+            <div className="pt-1 animate-fade-up" style={{ animationDelay: '1.6s' }}>
               <p className="text-xs text-muted mb-3 font-mono">— try asking</p>
               <div className="flex flex-wrap gap-2">
                 {suggestedQuestions.map((q, i) => (
@@ -207,13 +221,13 @@ export default function Chat() {
               </div>
             </div>
           )}
-
         </div>
 
         {/* Input */}
         <form
           onSubmit={(e) => { e.preventDefault(); sendMessage(input); }}
-          className="px-4 py-3 border-t border-border flex items-center gap-3 bg-surface-2 shrink-0"
+          className="px-4 py-3 border-t flex items-center gap-3 shrink-0"
+          style={{ borderColor: 'rgba(74, 222, 128, 0.12)', background: 'var(--color-surface-2)' }}
         >
           <span className="font-mono text-secondary text-sm select-none shrink-0">~$</span>
           <input
@@ -241,7 +255,7 @@ export default function Chat() {
       </div>
 
       <p className="mt-3 text-xs text-muted font-mono">
-        Powered by Google Gemini · Qdrant vector search · Node.js RAG backend
+        Gemini text-embedding-004 · Qdrant vector search · gemini-2.0-flash · PostgreSQL history · Redis rate limit
       </p>
     </section>
   );

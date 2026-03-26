@@ -8,6 +8,7 @@ import { initDB } from './services/db.js';
 import { getRedisClient } from './services/redis.js';
 import rateLimiter from './middleware/rateLimiter.js';
 import chatRouter from './routes/chat.js';
+import systemRouter from './routes/system.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -28,6 +29,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/chat', rateLimiter, chatRouter);
+app.use('/api/system', systemRouter);
 
 // Serve frontend static files if built
 const frontendDist = join(__dirname, '../../frontend/dist');
