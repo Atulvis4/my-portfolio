@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useInView } from '../hooks/useInView';
+import { useEffect, useRef, useState } from 'react';
 
 function formatUptime(seconds) {
   const d = Math.floor(seconds / 86400);
@@ -23,11 +22,28 @@ function memColor(pct) {
 }
 
 export default function ServerStatus() {
-  const [ref, inView] = useInView();
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
   const [stats, setStats] = useState(null);
   const [error, setError] = useState(false);
 
+  // Two-way visibility: start polling when visible, stop when scrolled away
   useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!inView) return;
+
+    let failCount = 0;
+
     async function fetchStats() {
       try {
         const res = await fetch('/api/system/stats');
@@ -35,15 +51,18 @@ export default function ServerStatus() {
         const data = await res.json();
         setStats(data);
         setError(false);
+        failCount = 0;
       } catch {
+        failCount += 1;
         setError(true);
+        if (failCount >= 3) clearInterval(interval);
       }
     }
 
     fetchStats();
     const interval = setInterval(fetchStats, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [inView]);
 
   const memPercent = stats ? Math.round((stats.memory.used / stats.memory.total) * 100) : 0;
   const cpuPct = stats ? stats.cpu : 0;

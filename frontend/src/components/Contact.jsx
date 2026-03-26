@@ -1,11 +1,6 @@
-import { useState, useRef } from 'react';
-import emailjs from '@emailjs/browser';
+import { useState } from 'react';
 import { personal } from '../data/portfolioData';
 import { useInView } from '../hooks/useInView';
-
-const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 // Rate limit: max 2 submissions per 15 minutes (localStorage-based)
 const RATE_LIMIT_MAX = 2;
@@ -40,7 +35,6 @@ const INITIAL = { name: '', email: '', message: '' };
 
 export default function Contact() {
   const [ref, inView] = useInView();
-  const formRef = useRef(null);
   const [fields, setFields] = useState(INITIAL);
   const [status, setStatus] = useState('idle'); // idle | sending | success | error | ratelimit
   const [errorMsg, setErrorMsg] = useState('');
@@ -62,11 +56,17 @@ export default function Contact() {
 
     setStatus('sending');
     try {
-      await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, { publicKey: PUBLIC_KEY });
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(fields),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Something went wrong.');
       setStatus('success');
       setFields(INITIAL);
     } catch (err) {
-      setErrorMsg(err?.text || 'Something went wrong. Try emailing directly.');
+      setErrorMsg(err.message || 'Something went wrong. Try emailing directly.');
       setStatus('error');
     }
   }
@@ -90,7 +90,7 @@ export default function Contact() {
           </p>
 
           <div className="flex flex-wrap gap-2 mb-6">
-            {['Full-time', 'Freelance', 'Contract'].map((type) => (
+            {['Full-time'].map((type) => (
               <span key={type} className="badge flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
                 {type}
@@ -110,7 +110,7 @@ export default function Contact() {
               </button>
             </div>
           ) : (
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
+            <form onSubmit={handleSubmit} className="space-y-3">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <input
