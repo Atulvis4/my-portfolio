@@ -10,34 +10,43 @@ const pool = new Pool({
   password: process.env.POSTGRES_PASSWORD || 'portfolio123',
 });
 
-async function initDB() {
-  const client = await pool.connect();
-  try {
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS chat_sessions (
-        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        created_at TIMESTAMPTZ DEFAULT NOW()
-      );
-    `);
+async function initDB(retries = 10, delayMs = 3000) {
+  for (let i = 1; i <= retries; i++) {
+    try {
+      const client = await pool.connect();
+      try {
+        await client.query(`
+          CREATE TABLE IF NOT EXISTS chat_sessions (
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            created_at TIMESTAMPTZ DEFAULT NOW()
+          );
+        `);
 
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS chat_messages (
-        id SERIAL PRIMARY KEY,
-        session_id UUID REFERENCES chat_sessions(id) ON DELETE CASCADE,
-        role VARCHAR(10) CHECK (role IN ('user', 'assistant')) NOT NULL,
-        content TEXT NOT NULL,
-        created_at TIMESTAMPTZ DEFAULT NOW()
-      );
-    `);
+        await client.query(`
+          CREATE TABLE IF NOT EXISTS chat_messages (
+            id SERIAL PRIMARY KEY,
+            session_id UUID REFERENCES chat_sessions(id) ON DELETE CASCADE,
+            role VARCHAR(10) CHECK (role IN ('user', 'assistant')) NOT NULL,
+            content TEXT NOT NULL,
+            created_at TIMESTAMPTZ DEFAULT NOW()
+          );
+        `);
 
-    await client.query(`
-      CREATE INDEX IF NOT EXISTS idx_chat_messages_session
-      ON chat_messages(session_id, created_at);
-    `);
+        await client.query(`
+          CREATE INDEX IF NOT EXISTS idx_chat_messages_session
+          ON chat_messages(session_id, created_at);
+        `);
 
-    console.log('[db] Tables initialized');
-  } finally {
-    client.release();
+        console.log('[db] Tables initialized');
+        return;
+      } finally {
+        client.release();
+      }
+    } catch (err) {
+      console.log(`[db] Connection attempt ${i}/${retries} failed: ${err.message}`);
+      if (i === retries) throw err;
+      await new Promise(res => setTimeout(res, delayMs));
+    }
   }
 }
 
