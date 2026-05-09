@@ -4,7 +4,7 @@ export const personal = {
   tagline:
     'I build scalable backend systems and AI-powered applications — multi-agent RAG pipelines, vector search, LLM-integrated APIs, and production-grade backends.',
   location: 'Mumbai, India',
-  experience: '1.3 years',
+  experience: '2 years',
   available: true,
   email: 'atul.vis4@gmail.com',
   github: 'https://github.com/atulvis4',
@@ -21,7 +21,7 @@ export const skills = {
 
 export const experience = [
   {
-    company: 'Cancer Mitr',
+    company: 'CancerMitr',
     role: 'Software Developer',
     period: 'Nov 2024 — Present',
     location: 'Mumbai, India',

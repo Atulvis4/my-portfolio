@@ -14,7 +14,7 @@ const RESUME_CHUNKS = [
   {
     id: 1,
     section: 'summary',
-    text: `Atulkumar Vishwakarma is a Backend Engineer specializing in AI & RAG Systems with 1.3 years of professional experience.
+    text: `Atulkumar Vishwakarma is a Backend Engineer specializing in AI & RAG Systems with 2 years of professional experience.
 His title and expertise: Backend Engineer | AI & RAG Systems | Node.js | Laravel | REST APIs | Vector Search.
 He builds scalable backend systems and AI-powered applications — including multi-agent RAG architectures, vector search pipelines, and LLM-integrated backend services.
 He has independently architected and shipped production systems including AI assistants, RBAC-based platforms, REST APIs, payment integrations, and cloud storage solutions.

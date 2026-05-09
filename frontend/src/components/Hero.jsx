@@ -55,9 +55,8 @@ export default function Hero() {
         >
           {displayName}
           <span
-            className={`inline-block w-0.5 h-10 md:h-12 bg-primary ml-1 align-middle ${
-              done ? 'animate-cursor-blink' : ''
-            }`}
+            className={`inline-block w-0.5 h-10 md:h-12 bg-primary ml-1 align-middle ${done ? 'animate-cursor-blink' : ''
+              }`}
           />
         </h1>
 
@@ -90,12 +89,12 @@ export default function Hero() {
             <span className="text-xs text-muted">AI</span>
           </a>
           <a
-            href="/Atulkumar_Vishwakarma_Resume.pdf"
-            download="Atulkumar_Vishwakarma_Resume.pdf"
+            href="/Atul_Vishwakarma_Resume.pdf"
+            download="Atul_Vishwakarma_Resume.pdf"
             className="btn-secondary"
           >
             Resume
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
           </a>
         </div>
 

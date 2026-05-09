@@ -57,11 +57,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled || menuOpen
-          ? 'bg-background/95 backdrop-blur-md border-b border-border'
-          : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || menuOpen
+        ? 'bg-background/95 backdrop-blur-md border-b border-border'
+        : 'bg-transparent'
+        }`}
     >
       <div className="max-w-6xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
         {/* Logo */}
@@ -84,12 +83,12 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="/Atulkumar_Vishwakarma_Resume.pdf"
-            download="Atulkumar_Vishwakarma_Resume.pdf"
+            href="/Atul_Vishwakarma_Resume.pdf"
+            download="Atul_Vishwakarma_Resume.pdf"
             className="text-sm text-secondary hover:text-primary transition-colors duration-150 flex items-center gap-1.5"
           >
             resume
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
           </a>
           <button
             onClick={toggle}
@@ -125,9 +124,8 @@ export default function Navbar() {
 
       {/* Mobile menu dropdown — solid background, no bleed-through */}
       <div
-        className={`sm:hidden overflow-hidden transition-all duration-300 ease-in-out bg-background border-t border-border ${
-          menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0 border-transparent'
-        }`}
+        className={`sm:hidden overflow-hidden transition-all duration-300 ease-in-out bg-background border-t border-border ${menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0 border-transparent'
+          }`}
       >
         <nav className="flex flex-col px-5 pb-4 gap-1">
           {NAV_LINKS.map((link) => (
@@ -141,13 +139,13 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="/Atulkumar_Vishwakarma_Resume.pdf"
-            download="Atulkumar_Vishwakarma_Resume.pdf"
+            href="/Atul_Vishwakarma_Resume.pdf"
+            download="Atul_Vishwakarma_Resume.pdf"
             onClick={handleNavClick}
             className="text-sm text-secondary hover:text-primary transition-colors duration-150 py-2.5 flex items-center gap-1.5"
           >
             resume
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
           </a>
         </nav>
       </div>
